@@ -9,14 +9,25 @@ public class BarScript : MonoBehaviour
     public Image fill;
 
     public void SetMaxEnergy(int energy){
-        slider.maxValue = energy;
+        slider.maxValue = 500;
         slider.value = energy;
+
+        fill.color = gradient.Evaluate(1f);
+    }
+    public void SetMaxHappy(int happy){
+        slider.maxValue = 500;
+        slider.value = happy;
 
         fill.color = gradient.Evaluate(1f);
     }
     public void SetEnergy(int energy){
  
         slider.value = energy;
+        fill.color = gradient.Evaluate(slider.normalizedValue);
+    }
+       public void SetHappy(int happy){
+ 
+        slider.value = happy;
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
    
