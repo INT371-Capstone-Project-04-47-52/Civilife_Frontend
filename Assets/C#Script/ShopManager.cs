@@ -7,7 +7,7 @@ using TMPro;
 public class ShopManager : MonoBehaviour
 {
 
-    public int[,] shopItems = new int[6,70];
+    public int[,] shopItems = new int[6,62];
     public int coins;
     public int energy;
     public int happy;
@@ -28,7 +28,7 @@ public class ShopManager : MonoBehaviour
     {
         CoinsTXT.text = coins.ToString();
         MoneyInBankTXT.text = "Money: " + moneyInBank.ToString();
-        TimeTXT = hour.ToString(); + minute.ToString();
+        // TimeTXT.text = hour.ToString() + minute.ToString();
         //ID's
         //0 Restuarants
         //1 Relax
@@ -97,6 +97,9 @@ public class ShopManager : MonoBehaviour
         shopItems[1, 58] = 58;
         shopItems[1, 59] = 59;
         shopItems[1, 60] = 60;
+        shopItems[1, 61] = 61;
+        shopItems[1, 62] = 62;
+        shopItems[1, 63] = 63;
 
 
         //Price
@@ -160,6 +163,9 @@ public class ShopManager : MonoBehaviour
         shopItems[2, 58] = 190;
         shopItems[2, 59] = 230;
         shopItems[2, 60] = 300;
+        shopItems[2, 61] = 20;
+        shopItems[2, 62] = 40;
+        shopItems[2, 63] = 20;
 
 
         //Energy
@@ -222,6 +228,9 @@ public class ShopManager : MonoBehaviour
         shopItems[3, 57] = 10;
         shopItems[3, 58] = 10;
         shopItems[3, 60] = 10;
+        shopItems[3, 61] = 20;
+        shopItems[3, 62] = 40;
+        shopItems[3, 63] = 20;
 
 
           //Happy
@@ -287,6 +296,9 @@ public class ShopManager : MonoBehaviour
         shopItems[4, 58] = 4;
         shopItems[4, 59] = 3;
         shopItems[4, 60] = 5;
+        shopItems[4, 61] = 30;
+        shopItems[4, 62] = 40;
+        shopItems[4, 63] = 30;
 
   //Time
         shopItems[5, 1] = 30;
@@ -348,6 +360,9 @@ public class ShopManager : MonoBehaviour
         shopItems[5, 57] = 10;
         shopItems[5, 58] = 10;
         shopItems[5, 60] = 10;
+        shopItems[5, 61] = 10;
+        shopItems[5, 62] = 10;
+        shopItems[5, 63] = 10;
 
         //  energy = maxEnergy;
     }
@@ -369,7 +384,7 @@ public class ShopManager : MonoBehaviour
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
         moneyInBank = myplayer.currentMoneyInBank;
-        time = myplayer.currentTime;
+        minute = myplayer.currentMinute;
         if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
@@ -391,7 +406,7 @@ public class ShopManager : MonoBehaviour
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
             // if(moneyInBank<=0){moneyInBank = 0;}
-           time += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+           minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
      
