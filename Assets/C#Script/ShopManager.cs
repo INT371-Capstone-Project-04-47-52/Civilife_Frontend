@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro; 
+[System.Serializable]
 public class ShopManager : MonoBehaviour
 {
 
-    public int[,] shopItems = new int[6,62];
+    public int[,] shopItems = new int[6,70];
     public int coins;
     public int energy;
     public int happy;
-    public int hour;
     public int minute;
+    public int hour;
     public int moneyInBank;
-    public TextMeshProUGUI CoinsTXT;
-    public TextMeshProUGUI MoneyInBankTXT;
-    public TextMeshProUGUI TimeTXT;
+    public int point;
+    public Text CoinsTXT;
+    public Text MoneyInBankTXT;
+    public Text TimeTXT;
+    public Text PointTXT;
 //  public Image coinsBar;
-    public TextMeshProUGUI EnergyTXT;
-    public TextMeshProUGUI HappyTXT;
+    public Text EnergyTXT;
+    public Text HappyTXT;
     // public Image energyBar;
     public int maxEnergy = 500;
     public int maxHappy = 500;
+    public Quest quest;
 
     void Start()
     {
         CoinsTXT.text = coins.ToString();
         MoneyInBankTXT.text = "Money: " + moneyInBank.ToString();
-        // TimeTXT.text = hour.ToString() + minute.ToString();
+        TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+        PointTXT.text = point.ToString();
         //ID's
         //0 Restuarants
         //1 Relax
@@ -383,14 +387,15 @@ public class ShopManager : MonoBehaviour
         energy = myplayer.currentEnergy;
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
-        moneyInBank = myplayer.currentMoneyInBank;
         minute = myplayer.currentMinute;
+        hour = myplayer.currentHour;
+         if(coins< 0 ){ coins = 0;}
         if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
             coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
             
-            if(coins< 0 ){ coins = 0;}
+           
             CoinsTXT.text =  coins.ToString();
 
             energy += shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID];
@@ -406,10 +411,21 @@ public class ShopManager : MonoBehaviour
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
             // if(moneyInBank<=0){moneyInBank = 0;}
-           minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+      if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+            myplayer.SetHour(hour);
+            myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+ myplayer.SetCoins(coins);
+        
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
@@ -417,6 +433,17 @@ public class ShopManager : MonoBehaviour
             // Debug.Log(myplayer.currentEnergy);
         }
        
+         if(quest.isActive){
+            quest.goal.Buy();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
     }
     //ฝากเงิน
        public void Deposite()
@@ -429,10 +456,13 @@ public class ShopManager : MonoBehaviour
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
         moneyInBank = myplayer.currentMoneyInBank;
+        minute = myplayer.currentMinute;
+          hour = myplayer.currentHour;
+       
 
 
         // player.GetComponent<Player>().BuyProduct(40);
-      
+             if(coins< 0 ){ coins = 0;}
         if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
           
@@ -444,7 +474,7 @@ public class ShopManager : MonoBehaviour
            
             coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+     
             CoinsTXT.text =  coins.ToString();
 
             energy -= 10;
@@ -457,9 +487,20 @@ public class ShopManager : MonoBehaviour
               if(happy>maxHappy){happy = maxHappy;}
              if(happy< 0 ){ happy = 0;}
              HappyTXT.text = happy.ToString();
-
+             if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
+            myplayer.SetCoins(coins);
      
             
             
@@ -467,6 +508,17 @@ public class ShopManager : MonoBehaviour
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
         }
+          if(quest.isActive){
+            quest.goal.Deposite();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
        
     }
     //ถอนเงิน
@@ -479,10 +531,10 @@ public class ShopManager : MonoBehaviour
          happy = myplayer.currentHappy;
          coins = myplayer.currentCoins;
          moneyInBank = myplayer.currentMoneyInBank;
-
-
+         minute = myplayer.currentMinute;
+         hour = myplayer.currentHour;
         // player.GetComponent<Player>().BuyProduct(40);
-      
+       if(coins< 0 ){ coins = 0;}
         if (moneyInBank >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             // if(coins<=0){coins = 0;}
@@ -492,7 +544,7 @@ public class ShopManager : MonoBehaviour
            
             coins += shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+           
             CoinsTXT.text =  coins.ToString();
 
             energy -= 20;
@@ -507,16 +559,38 @@ public class ShopManager : MonoBehaviour
             HappyTXT.text = happy.ToString();
 
        
-                  
+            if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+             myplayer.SetCoins(coins);
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
-        }}
+        }
+          if(quest.isActive){
+            quest.goal.Withdraw();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
+        }
          public void Pay(){
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
         GameObject player  = GameObject.FindGameObjectWithTag("Player");
@@ -526,8 +600,9 @@ public class ShopManager : MonoBehaviour
          happy = myplayer.currentHappy;
          coins = myplayer.currentCoins;
          moneyInBank = myplayer.currentMoneyInBank;
-
-
+         minute = myplayer.currentMinute;
+  hour = myplayer.currentHour;
+       if(coins< 0 ){ coins = 0;}
         // player.GetComponent<Player>().BuyProduct(40);
       
         if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
@@ -538,7 +613,7 @@ public class ShopManager : MonoBehaviour
            
             coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+          
             CoinsTXT.text =  coins.ToString();
 
             energy -= 20;
@@ -552,17 +627,39 @@ public class ShopManager : MonoBehaviour
               if(happy< 0){happy = 0;}
             HappyTXT.text = happy.ToString();
 
-   
+           if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
                   
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+      myplayer.SetCoins(coins);
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
-        }}
+        }
+          if(quest.isActive){
+            quest.goal.Pay();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
+        }
 
          public void Work(){
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
@@ -572,14 +669,15 @@ public class ShopManager : MonoBehaviour
         energy = myplayer.currentEnergy;
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
-        moneyInBank = myplayer.currentMoneyInBank;
-      
+        minute = myplayer.currentMinute;
+        hour = myplayer.currentHour;
+        if(coins< 0 ){ coins = 0;}
         if (energy >= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
             coins += shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+          
             CoinsTXT.text =  coins.ToString();
 
             energy -= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID];
@@ -594,16 +692,37 @@ public class ShopManager : MonoBehaviour
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
             // if(moneyInBank<=0){moneyInBank = 0;}
-       
+         if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
      
-            
+             myplayer.SetCoins(coins);
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
         }
+          if(quest.isActive){
+            quest.goal.Work();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
        
     }
       public void Relax() {
@@ -614,14 +733,15 @@ public class ShopManager : MonoBehaviour
         energy = myplayer.currentEnergy;
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
-        moneyInBank = myplayer.currentMoneyInBank;
-      
+        minute = myplayer.currentHour;
+        hour = myplayer.currentHour;
+        if(coins< 0 ){ coins = 0;}
         if (coins >= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
             coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+            
             CoinsTXT.text =  coins.ToString();
 
             energy -= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID];
@@ -636,16 +756,37 @@ public class ShopManager : MonoBehaviour
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
             // if(moneyInBank<=0){moneyInBank = 0;}
-          
+         if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+      myplayer.SetCoins(coins);
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
         }
+          if(quest.isActive){
+            quest.goal.Relax();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
        
     }
    
@@ -657,14 +798,15 @@ public class ShopManager : MonoBehaviour
         energy = myplayer.currentEnergy;
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
-        moneyInBank = myplayer.currentMoneyInBank;
-      
+      minute = myplayer.currentMinute;
+        hour = myplayer.currentHour;
+         if(coins< 0 ){ coins = 0;}
         if (coins >= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
             coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
                
-            if(coins< 0 ){ coins = 0;}
+           
             CoinsTXT.text =  coins.ToString();
 
             energy -= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID];
@@ -679,34 +821,58 @@ public class ShopManager : MonoBehaviour
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
             // if(moneyInBank<=0){moneyInBank = 0;}
-           
+             
+              if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+      myplayer.SetCoins(coins);
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
         }
+          if(quest.isActive){
+            quest.goal.ShoppingMarket();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
        
     }
        public void Temple(){
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
         GameObject player  = GameObject.FindGameObjectWithTag("Player");
         Player myplayer = (Player) player.GetComponent(typeof(Player));
+    
         // energy = myplayer.currentEnergy;
         energy = myplayer.currentEnergy;
         happy = myplayer.currentHappy;
         coins = myplayer.currentCoins;
-        moneyInBank = myplayer.currentMoneyInBank;
-      
+      minute = myplayer.currentMinute;
+        hour = myplayer.currentHour;
+        if(coins< 0 ){ coins = 0;}
         if (coins >= shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
             
             coins -= 40;
     
-            if(coins< 0 ){ coins = 0;}
+         
             CoinsTXT.text =  coins.ToString();
 
             energy -= 10;
@@ -720,16 +886,37 @@ public class ShopManager : MonoBehaviour
               if(happy< 0){happy = 0;}
              HappyTXT.text = happy.ToString();
             // if(coins<=0){coins = 0;}
- 
+    if(minute<60){
+               minute += shopItems[5, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+             
+             }
+   if(minute>=60){
+       minute = 0;
+       hour++;}
+     
+     TimeTXT.text = hour.ToString("00") + ":" + minute.ToString("00");
+              myplayer.SetHour(hour);
+             myplayer.SetMinute(minute);
             myplayer.SetEnergy(energy);
             myplayer.SetHappy(happy);
-     
+      myplayer.SetCoins(coins);
             
             
             //   energyBar.fillAmount = energy / maxEnergy;
             // ButtonRef.GetComponent<ButtonInfo>().quantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             // Debug.Log(myplayer.currentEnergy);
         }
+          if(quest.isActive){
+            quest.goal.Temple();
+            if(quest.goal.IsReached()){
+              point++;
+              PointTXT.text = point.ToString();
+              // happy += quest.happyReward;
+              // coins += quest.goldReward;
+              quest.Complete();
+            }
+          
+    }
        
     }
     }

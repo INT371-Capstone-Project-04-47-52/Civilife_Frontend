@@ -18,53 +18,33 @@ public class Player : MonoBehaviour
   
     public BarScript energyBar;
     public BarScript happyBar;
+    //public Quest quest;
+    
    // public ShopManager shopManager;
     // Start is called before the first frame update
+
     void Start()
-    {
+    {   
         currentEnergy = maxEnergy;
         energyBar.SetMaxEnergy(maxEnergy);
         currentHappy = maxHappy;
         happyBar.SetMaxHappy(maxHappy);
         currentMinute = 0;
         currentHour = 0;
+        
     }
-
     // Update is called once per frame
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Space)){
-             BuyProduct(-20);
-      }
-    //  else{
-    //    BuyProduct(shopManager.energy);
-    //   }
-    
-        // BuyProduct(shopManager.energy);
-        // energyBar.SetEnergy(shopManager.energy/5);
-
-    }
-    public void BuyProduct(int valueEnergy){
-     currentEnergy = valueEnergy;
-     
-    
-         if(currentEnergy> maxEnergy){
-            currentEnergy = maxEnergy;
-         }
-energyBar.SetEnergy(currentEnergy);
-    }
-     public void BuyProductHappy(int valueHappy){
-     currentHappy = valueHappy;
-    
-     if(currentHappy>maxHappy){
-        currentHappy = maxHappy;
-         }
-        happyBar.SetHappy(currentHappy);
+   
 
     }
 
+    public void SetCoins(int valueCoins){
+        currentCoins = valueCoins;
+    }
     public void SetEnergy(int valueEnergy){
-        // Debug.Log(valueEnergy);
+       // Debug.Log(valueEnergy);
      currentEnergy = valueEnergy;
        
  if(currentEnergy>maxEnergy){
@@ -76,6 +56,7 @@ energyBar.SetEnergy(currentEnergy);
     
 
     public void SetHappy(int valueHappy){
+        
         // Debug.Log(valueEnergy);
          currentHappy = valueHappy;
         if(currentHappy>maxHappy){
@@ -88,23 +69,18 @@ energyBar.SetEnergy(currentEnergy);
     
       public void SetMinute(int valueMinute){
         // Debug.Log(valueEnergy);
-     currentMinute = valueMinute;
-       
- if(currentMinute>=60){
-    currentMinute = 0;
-    currentHour +=1;
+    
+       currentMinute = valueMinute;
+      
+   
       }
+
          
         
-    }
+    
       public void SetHour(int valueHour){
+            currentHour = valueHour;
         // Debug.Log(valueEnergy);
-     currentHour = valueHour;
-       
- if(currentHour>=24){
-    currentHour = 0;
-    currentDay +=1;
-      }
          
         
     }

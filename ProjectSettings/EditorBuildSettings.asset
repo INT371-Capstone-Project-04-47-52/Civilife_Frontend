@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Login.unity
     guid: d20da1f37b6a8457c963fdb8f20d7d28
   - enabled: 1
-    path: Assets/Scenes/CreateCharacter.unity
-    guid: 42dda6583013e44ec8d7524c58a0fb18
+    path: Assets/Scenes/CreateCharacters.unity
+    guid: 0b8de644e21174e6682854517bf86900
   - enabled: 1
     path: Assets/Scenes/MainPage.unity
     guid: 2cda990e2423bbf4892e6590ba056729
