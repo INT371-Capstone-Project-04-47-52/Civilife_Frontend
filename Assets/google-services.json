@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "556399211540",
+    "firebase_url": "https://civilife-f220c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "civilife-f220c",
+    "storage_bucket": "civilife-f220c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556399211540:android:2273c33ac61fbf6aafe301",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.CivilifeProject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556399211540-nlmc0g4rv3bko0l31k0l0ko9i2m8ek3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1WiCru3gI4ZhxqM9OauJ5PyOPK4nZgsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556399211540-nlmc0g4rv3bko0l31k0l0ko9i2m8ek3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556399211540:android:535e4a0933c5ba83afe301",
+        "android_client_info": {
+          "package_name": "com.civilife.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556399211540-nlmc0g4rv3bko0l31k0l0ko9i2m8ek3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1WiCru3gI4ZhxqM9OauJ5PyOPK4nZgsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556399211540-nlmc0g4rv3bko0l31k0l0ko9i2m8ek3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

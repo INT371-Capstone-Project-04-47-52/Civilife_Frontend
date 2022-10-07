@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 [System.Serializable]
 public class ShopManager : MonoBehaviour
 {
@@ -15,13 +16,13 @@ public class ShopManager : MonoBehaviour
     public int hour;
     public int moneyInBank;
     public int point;
-    public Text CoinsTXT;
-    public Text MoneyInBankTXT;
-    public Text TimeTXT;
-    public Text PointTXT;
+    public TMP_Text CoinsTXT;
+    public TMP_Text MoneyInBankTXT;
+    public TMP_Text TimeTXT;
+    public TMP_Text PointTXT;
 //  public Image coinsBar;
-    public Text EnergyTXT;
-    public Text HappyTXT;
+    public TMP_Text EnergyTXT;
+    public TMP_Text HappyTXT;
     // public Image energyBar;
     public int maxEnergy = 500;
     public int maxHappy = 500;
