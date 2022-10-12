@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
   
     public BarScript energyBar;
     public BarScript happyBar;
+    
+    public CharacterDatabase characterDB;
+
+    public SpriteRenderer artworkSprite;
+
+    public int selectedOption = 0;
     //public Quest quest;
     
    // public ShopManager shopManager;
@@ -31,6 +37,16 @@ public class Player : MonoBehaviour
         happyBar.SetMaxHappy(maxHappy);
         currentMinute = 0;
         currentHour = 0;
+          if(!PlayerPrefs.HasKey("selectedOption"))
+        {
+            selectedOption = 0;
+        }
+
+        else
+        {
+            Load();
+        }
+        UpdateCharacter(selectedOption);
         
     }
     // Update is called once per frame
@@ -38,6 +54,18 @@ public class Player : MonoBehaviour
     {
    
 
+    }
+
+      private void UpdateCharacter(int selectedOption)
+    {
+        Character character = characterDB.GetCharacter(selectedOption);
+        artworkSprite.sprite = character.characterSprite;
+
+    }
+
+    private void Load()
+    {
+        selectedOption = PlayerPrefs.GetInt("selectedOption"); 
     }
 
     public void SetCoins(int valueCoins){

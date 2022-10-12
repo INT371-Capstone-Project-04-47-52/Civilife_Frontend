@@ -33,10 +33,9 @@ public class FirebaseManager : MonoBehaviour
     //User Data variables
     [Header("UserData")]
     public TMP_Text usernameField;
-    public TMP_Text usernameCharacShow;
-    public TMP_Text coinsField; //coins
-    public TMP_Text energyField; //energy
-    public TMP_Text happyField; //happy
+    public TMP_Text coinsField;
+    public TMP_Text energyField;
+    public TMP_Text happyField;
     public GameObject scoreElement;
     public Transform scoreboardContent;
 
@@ -71,9 +70,8 @@ public class FirebaseManager : MonoBehaviour
         passwordLoginField.text = "";
     }
     public void ClearRegisterFeilds()
-    {   
+    {
         usernameRegisterField.text = "";
-
         emailRegisterField.text = "";
         passwordRegisterField.text = "";
         passwordRegisterVerifyField.text = "";
@@ -103,8 +101,7 @@ public class FirebaseManager : MonoBehaviour
     public void SaveDataButton()
     {
         StartCoroutine(UpdateUsernameAuth(usernameField.text));
-        StartCoroutine(UpdateUsernameDatabase(usernameField.text));
-
+        StartCoroutine(UpdateUsernameDatabase(usernameField.text));     
         StartCoroutine(UpdateCoins(int.Parse(coinsField.text)));
         StartCoroutine(UpdateEnergy(int.Parse(energyField.text)));
         StartCoroutine(UpdateHappy(int.Parse(happyField.text)));
@@ -163,7 +160,6 @@ public class FirebaseManager : MonoBehaviour
             yield return new WaitForSeconds(2);
 
             usernameField.text = User.DisplayName;
-            usernameCharacShow.text = usernameField.text;
             UIManager.instance.UserDataScreen(); // Change to user data UI
             confirmLoginText.text = "";
             ClearLoginFeilds();
@@ -178,6 +174,7 @@ public class FirebaseManager : MonoBehaviour
             //If the username field is blank show a warning
             warningRegisterText.text = "Missing Username";
         }
+      
         else if(passwordRegisterField.text != passwordRegisterVerifyField.text)
         {
             //If the password does not match show a warning
@@ -288,6 +285,7 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator UpdateCoins(int _coins)
     {
         //Set the currently logged in user coins
@@ -301,10 +299,10 @@ public class FirebaseManager : MonoBehaviour
         }
         else
         {
-            //Coins is now updated
+            //coins is now updated
         }
     }
-
+    
     private IEnumerator UpdateEnergy(int _energy)
     {
         //Set the currently logged in user energy
@@ -356,12 +354,13 @@ public class FirebaseManager : MonoBehaviour
             coinsField.text = "15000";
             energyField.text = "500";
             happyField.text = "500";
+          
         }
         else
         {
             //Data has been retrieved
             DataSnapshot snapshot = DBTask.Result;
-
+          
             coinsField.text = snapshot.Child("coins").Value.ToString();
             energyField.text = snapshot.Child("energy").Value.ToString();
             happyField.text = snapshot.Child("happy").Value.ToString();
