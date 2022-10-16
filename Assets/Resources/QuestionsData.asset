@@ -13,7 +13,33 @@ MonoBehaviour:
   m_Name: QuestionsData
   m_EditorClassIdentifier: 
   questions:
-  - questionImage: {fileID: 21300000, guid: 51a4c89da483baf4ba8a103d93ca3653, type: 3}
-    answer: Chicken
-  - questionImage: {fileID: 21300000, guid: 3dd500e276cfc3d47a2a216ec0584cb8, type: 3}
-    answer: Cow
+  - questionImage: {fileID: 21300000, guid: 6c6f958aa679f4f6dac513d3e79f3524, type: 3}
+    answer: agile
+  - questionImage: {fileID: 21300000, guid: c4ff8fddeef994f2abc8df13d762a72c, type: 3}
+    answer: ai
+  - questionImage: {fileID: 21300000, guid: 461a9a980f3ed46e8b04bee857816015, type: 3}
+    answer: application
+  - questionImage: {fileID: 21300000, guid: d32598fc80b3d4cd69a4e305791c9ba1, type: 3}
+    answer: blockchain
+  - questionImage: {fileID: 21300000, guid: f5f5d8b2548e74a63913967d0eeb3271, type: 3}
+    answer: cloud
+  - questionImage: {fileID: 21300000, guid: b32f3807f21da4fa3830aa8ca4036b9c, type: 3}
+    answer: figma
+  - questionImage: {fileID: 21300000, guid: 5b48b67738c864a138c48339cd295aa4, type: 3}
+    answer: hacker
+  - questionImage: {fileID: 21300000, guid: b05481d5edb6d4c5cbafe88ba3c547d7, type: 3}
+    answer: javascript
+  - questionImage: {fileID: 21300000, guid: 619440f5abbde4d299777b696b81cbf1, type: 3}
+    answer: LAN
+  - questionImage: {fileID: 21300000, guid: ec86ff4192ada436a98a1bed394e7512, type: 3}
+    answer: metaverse
+  - questionImage: {fileID: 21300000, guid: 2ad29bb339fe942e7863c8ca3082be12, type: 3}
+    answer: prototype
+  - questionImage: {fileID: 21300000, guid: 800db677e770b4197a9cd8a06663c83d, type: 3}
+    answer: responsive
+  - questionImage: {fileID: 21300000, guid: fa91ba7d77faa4f29af5b73950d6714d, type: 3}
+    answer: waterfall
+  - questionImage: {fileID: 21300000, guid: 6003568139c74489d8e66133d06a02bb, type: 3}
+    answer: wireframe
+  - questionImage: {fileID: 21300000, guid: 277fa4f0234a2473285e73f7287a0b63, type: 3}
+    answer: www

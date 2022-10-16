@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class WordData : MonoBehaviour
 {
-    [SerializeField] private Text wordText;
+    [SerializeField] private TMP_Text wordText;
 
     [HideInInspector]
     public char wordValue;

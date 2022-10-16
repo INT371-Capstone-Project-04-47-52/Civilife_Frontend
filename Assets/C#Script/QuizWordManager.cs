@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class QuizWordManager : MonoBehaviour
 {
     public static QuizWordManager instance; //Instance to make is available in other scripts without reference
@@ -25,6 +25,11 @@ public class QuizWordManager : MonoBehaviour
     private bool correctAnswer = true;                      //bool to decide if answer is correct or not
     private string answerWord;                              //string to store answer of current question
 
+    public Transform CorrectImage;
+    public Transform IncorrectImage;
+
+    public GameObject work_panel;
+    public GameObject quiz_panel;
     private void Awake()
     {
         if (instance == null)
@@ -127,13 +132,15 @@ public class QuizWordManager : MonoBehaviour
                 if (char.ToUpper(answerWord[i]) != char.ToUpper(answerWordList[i].wordValue))
                 {
                     correctAnswer = false; //set it false
+                     TweenResult(IncorrectImage);
                     break; //and break from the loop
+
                 }
             }
 
             //if correctAnswer is true
             if (correctAnswer)
-            {
+            {   TweenResult(CorrectImage);
                 Debug.Log("Correct Answer");
                 gameStatus = GameStatus.Next; //set the game status
                 currentQuestionIndex++; //increase currentQuestionIndex
@@ -146,7 +153,11 @@ public class QuizWordManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Game Complete"); //else game is complete
-                    gameComplete.SetActive(true);
+                    // gameComplete.SetActive(true);
+                       StartCoroutine(ExampleCoroutine());
+                       work_panel.SetActive(true);
+                       quiz_panel.SetActive(false);
+
                 }
             }
         }
@@ -163,6 +174,20 @@ public class QuizWordManager : MonoBehaviour
             currentAnswerIndex--;
             answerWordList[currentAnswerIndex].SetWord('_');
         }
+    }
+      void TweenResult(Transform resultTransform){
+        Sequence result = DOTween.Sequence();
+        result.Append(resultTransform.DOScale(1,.5f).SetEase(Ease.OutBack)); // Scale from 0 to 1
+        result.AppendInterval(1f); // Wait for 1 second
+        result.Append(resultTransform.DOScale(0,.2f).SetEase(Ease.Linear)); // Scale back down to 0
+     
+   }
+      IEnumerator ExampleCoroutine()
+    {
+       
+        yield return new WaitForSeconds(5);
+
+   
     }
 
 }

@@ -458,7 +458,7 @@ public class ShopManager : MonoBehaviour
         coins = myplayer.currentCoins;
         moneyInBank = myplayer.currentMoneyInBank;
         minute = myplayer.currentMinute;
-          hour = myplayer.currentHour;
+        hour = myplayer.currentHour;
        
 
 
