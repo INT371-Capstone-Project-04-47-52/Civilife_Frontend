@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,11 +19,16 @@ public class QuizManager : MonoBehaviour
 //    public TMP_Text ScoreTXT;
    int totalQuestions = 0;
     public int score;
+
+
+    
    private void Start(){
     totalQuestions = QnA.Count;
     
     // GoPanel.SetActive(false);
         generateQuestion();
+
+            
    }
 //    public void retry(){
 
@@ -69,7 +76,7 @@ public class QuizManager : MonoBehaviour
     }
    void generateQuestion(){
     if(QnA.Count >0 ){
-         currentQuestion = Random.Range(0, QnA.Count);
+         currentQuestion = UnityEngine.Random.Range(0, QnA.Count);
 
          QuestionTXT.text = QnA[currentQuestion].Question;
          SetAnswers();   
@@ -91,5 +98,6 @@ public class QuizManager : MonoBehaviour
 
   
    }
+
 
 }

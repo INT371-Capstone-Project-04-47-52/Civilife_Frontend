@@ -39,6 +39,9 @@ public class FirebaseManager : MonoBehaviour
     public GameObject scoreElement;
     public Transform scoreboardContent;
 
+    public AudioSource audioSource_success;
+    public AudioSource audioSource_false;
+
     void Awake()
     {
         //Check that all of the necessary dependencies for Firebase are present on the system
@@ -145,6 +148,7 @@ public class FirebaseManager : MonoBehaviour
                     message = "Account does not exist";
                     break;
             }
+             audioSource_false.Play();
             warningLoginText.text = message;
         }
         else
@@ -155,6 +159,7 @@ public class FirebaseManager : MonoBehaviour
             Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
             warningLoginText.text = "";
             confirmLoginText.text = "Logged In";
+             audioSource_success.Play();
             StartCoroutine(LoadUserData());
 
             yield return new WaitForSeconds(2);
