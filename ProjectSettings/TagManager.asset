@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Event
+  - PlayerMovement
+  - Platform
+  - Box
+  - GameOver
   layers:
   - Default
   - TransparentFX
@@ -13,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Place
+  - Platform
   - Effect
-  - 
   - 
   - 
   - 

@@ -12,6 +12,7 @@ public class MoneyEarner : MonoBehaviour
     [SerializeField] public GameObject _clickFX;
      [SerializeField] public RectTransform _buttonPosition;
     public GameObject item;
+    public GameObject gameComplete;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +40,24 @@ public class MoneyEarner : MonoBehaviour
          Instantiate(_clickFX, _buttonPosition.position+ new Vector3(Random.Range(-1000,-1200), Random.Range(-550,-700),0), Quaternion.identity);
         _coins++;
         _coinsText.text = _coins.ToString();
-        if(_coins==10){
-            _coinsText.text = "Work Success";
-            questClicker.SetActive(false);
-            item.SetActive(true);
+        if(_coins==20){
+             Debug.Log("Game Complete"); //else game is complete
+             gameComplete.SetActive(true);
+             StartCoroutine(ExampleCoroutine());
+             
+             questClicker.SetActive(false);
+             item.SetActive(true);
+              _coins=0;
+         
         }
 
 
+    }
+      IEnumerator ExampleCoroutine()
+    {
+       
+        yield return new WaitForSeconds(5);
+
+   
     }
 }

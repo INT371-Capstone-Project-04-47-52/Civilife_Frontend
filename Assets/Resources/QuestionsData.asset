@@ -17,8 +17,6 @@ MonoBehaviour:
     answer: agile
   - questionImage: {fileID: 21300000, guid: c4ff8fddeef994f2abc8df13d762a72c, type: 3}
     answer: ai
-  - questionImage: {fileID: 21300000, guid: 461a9a980f3ed46e8b04bee857816015, type: 3}
-    answer: application
   - questionImage: {fileID: 21300000, guid: d32598fc80b3d4cd69a4e305791c9ba1, type: 3}
     answer: blockchain
   - questionImage: {fileID: 21300000, guid: f5f5d8b2548e74a63913967d0eeb3271, type: 3}

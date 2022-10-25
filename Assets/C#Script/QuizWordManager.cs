@@ -153,7 +153,7 @@ public class QuizWordManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Game Complete"); //else game is complete
-                    // gameComplete.SetActive(true);
+                   gameComplete.SetActive(true);
                        StartCoroutine(ExampleCoroutine());
                        work_panel.SetActive(true);
                        quiz_panel.SetActive(false);
