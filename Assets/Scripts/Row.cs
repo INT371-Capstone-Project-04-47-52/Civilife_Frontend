@@ -15,7 +15,6 @@ public class Row : MonoBehaviour
     {
         rowStopped = true;
         GameControl.HandlePulled += StartRotating;
-        Debug.Log("Start Pull");
     }
 
     private void StartRotating()
@@ -39,7 +38,7 @@ public class Row : MonoBehaviour
             yield return new WaitForSeconds(timeInterval);
         }
 
-        randomValue = Random.Range(60,100);
+        randomValue = Random.Range(85,100);
 
         switch (randomValue % 3)
         {
@@ -53,10 +52,10 @@ public class Row : MonoBehaviour
 
         for (int i = 0; i < randomValue; i++)
         {
-            if (transform.position.y <= -3.5f) 
-                transform.position= new Vector2 (transform.position.x, 1.75f);
+            if (transform.position.y <= -6f) 
+                transform.position= new Vector2 (transform.position.x, 6f);
                 
-            transform.position= new Vector2 (transform.position.x, transform.position.y - 0.25f);
+            transform.position= new Vector2 (transform.position.x, transform.position.y - 1.5f);
 
             if (i > Mathf.RoundToInt(randomValue * 0.25f))
                 timeInterval = 0.05f; 
@@ -69,21 +68,21 @@ public class Row : MonoBehaviour
 
             yield return new WaitForSeconds (timeInterval); 
             
-            if (transform.position.y == -3.5f)
+            if (transform.position.y == -6f)
                 stoppedSlot = "Diamond"; 
-            else if (transform.position.y == -2.75f) 
+            else if (transform.position.y == -4.5f) 
                 stoppedSlot = "Crown"; 
-            else if (transform.position.y == -2f)
+            else if (transform.position.y == -3f)
                 stoppedSlot = "Melon";
-            else if (transform.position.y == -1.25f)
+            else if (transform.position.y == -1.5f)
                 stoppedSlot = "Bar"; 
-            else if (transform.position.y == -0.5f)
+            else if (transform.position.y == 0f)
                 stoppedSlot = "Seven"; 
-            else if (transform.position.y == 0.25f)
+            else if (transform.position.y == 1.5f)
                 stoppedSlot = "Cherry"; 
-            else if (transform.position.y == 1f)
+            else if (transform.position.y == 3f)
                 stoppedSlot = "Lemon"; 
-            else if (transform.position.y == 1.75f)
+            else if (transform.position.y == 6f)
                 stoppedSlot = "Diamond"; 
 
             rowStopped = true;
