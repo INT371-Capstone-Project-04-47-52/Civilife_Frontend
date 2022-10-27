@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class GameControl : MonoBehaviour {
     public static event Action HandlePulled = delegate { };
 
     [SerializeField]
-    private Text prizeText;
+    private TMP_Text prizeText;
 
     [SerializeField]
     private Row[] rows;
@@ -16,24 +16,32 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     private Transform handle;
 
-    private int prizeValue;
+   private string prizeValue;
 
     private bool resultsChecked = false;
 
+    public GameObject slot;
+
     // Update is called once per frame
     void Update () {
+        // Debug.Log(prizeValue);
+        // Debug.Log(resultsChecked);
+
         if (!rows[0].rowStopped || !rows[1].rowStopped || !rows[2].rowStopped)
         {
-            prizeValue = 0;
+            prizeValue = "";
             prizeText.enabled = false;
             resultsChecked = false;
         }
         if (rows[0].rowStopped && rows[1].rowStopped && rows[2].rowStopped && !resultsChecked)
         {
-            CheckResults();
+            // CheckResults();
             prizeText.enabled = true;
-            prizeText.text = "prize: " + prizeValue;
+            // prizeText.text = "รูปที่คุณจะวาดก็คือ " + prizeValue;
+            prizeText.text = "รูปที่คุณจะวาดก็คือ " + rows[0].stoppedSlot + " " + rows[1].stoppedSlot + " "+ rows[2].stoppedSlot;
+           
         }
+       
     }
 
     private void OnMouseDown()
@@ -58,128 +66,266 @@ public class GameControl : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
     }
-
+/*
     private void CheckResults()
     {
-        if (rows[0].stoppedSlot == "Diamond" 
-            && rows[1].stoppedSlot == "Diamond" 
-            && rows[2].stoppedSlot == "Diamond") 
+        if (rows[0].stoppedSlot == 0 
+            && rows[1].stoppedSlot == 0 
+            && rows[2].stoppedSlot == 0) 
 
-            prizeValue = 200;
+            prizeValue = "ไก่";
 
-        else if (rows[0].stoppedSlot == "Crown" 
-            && rows[1].stoppedSlot == "Crown" 
-            && rows[2].stoppedSlot == "Crown")
+        else if (rows[0].stoppedSlot == 1 
+            && rows[1].stoppedSlot == 1 
+            && rows[2].stoppedSlot == 1)
 
-            prizeValue = 400;
+            prizeValue = "นกฮูก";
 
-        else if (rows[0].stoppedSlot == "Melon" 
-            && rows[1].stoppedSlot == "Melon" 
-            && rows[2].stoppedSlot == "Melon") 
+        else if (rows[0].stoppedSlot == 2 
+            && rows[1].stoppedSlot == 2 
+            && rows[2].stoppedSlot == 2) 
 
-            prizeValue = 600; 
+            prizeValue = "จิ้งจอก"; 
 
-        else if (rows[0].stoppedSlot == "Bar" 
-            && rows[1].stoppedSlot == "Bar" 
-            && rows [2].stoppedSlot == "Bar")
+        else if (rows[0].stoppedSlot == 3 
+            && rows[1].stoppedSlot == 3 
+            && rows [2].stoppedSlot == 3)
 
-            prizeValue = 800;
+            prizeValue = "ผีเสื้อ";
         
-        else if (rows[0].stoppedSlot == "Seven" 
-            && rows[1].stoppedSlot == "Seven" 
-            && rows [2].stoppedSlot == "Seven")
+        else if (rows[0].stoppedSlot == 4 
+            && rows[1].stoppedSlot == 4 
+            && rows [2].stoppedSlot == 4)
 
-            prizeValue = 1500;
+            prizeValue = "แมว";
 
-        else if (rows[0].stoppedSlot == "Cherry" 
-            && rows[1].stoppedSlot == "Cherry" 
-            && rows [2].stoppedSlot == "Cherry")
+        else if (rows[0].stoppedSlot == 5 
+            && rows[1].stoppedSlot == 5 
+            && rows [2].stoppedSlot == 5)
 
-            prizeValue = 3000;
+            prizeValue = "ปลาวาฬ";
         
-        else if (rows[0].stoppedSlot == "Lemon" 
-            && rows[1].stoppedSlot == "Lemon" 
-            && rows [2].stoppedSlot == "Lemon")
+        else if (rows[0].stoppedSlot == "ปู" 
+            && rows[1].stoppedSlot == "ปู" 
+            && rows [2].stoppedSlot == "ปู")
 
-            prizeValue = 5000;
+            prizeValue = "ปู";
+
+        else if (rows[0].stoppedSlot == "เต่า" 
+            && rows[1].stoppedSlot == "เต่า" 
+            && rows [2].stoppedSlot == "เต่า")
+
+            prizeValue = "เต่า";
 
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Diamond"))
+            && (rows[0].stoppedSlot == 0))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Diamond"))
+            && (rows[0].stoppedSlot == 0))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Diamond")))
+            && (rows[1].stoppedSlot == 0)))
 
-            prizeValue = 100;
+            prizeValue = "ไก่";
 
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Crown"))
+            && (rows[0].stoppedSlot == 1))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Crown"))
+            && (rows[0].stoppedSlot == 1))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Crown")))
+            && (rows[1].stoppedSlot == 1)))
 
-            prizeValue = 300;
-        
-        else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Melon"))
-
-            || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Melon"))
-
-            || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Melon")))
-
-            prizeValue = 500;
+            prizeValue = "นกฮูก";
         
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Bar"))
+            && (rows[0].stoppedSlot == 2))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Bar"))
+            && (rows[0].stoppedSlot == 2))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Bar")))
+            && (rows[1].stoppedSlot == 2)))
 
-            prizeValue = 700;
+            prizeValue = "จิ้งจอก";
         
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Seven"))
+            && (rows[0].stoppedSlot == 3))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Seven"))
+            && (rows[0].stoppedSlot == 3))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Seven")))
+            && (rows[1].stoppedSlot == 3)))
 
-            prizeValue = 1000;
+            prizeValue = "ผีเสื้อ";
+        
+        else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+            && (rows[0].stoppedSlot == 4))
+
+            || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+            && (rows[0].stoppedSlot == 4))
+
+            || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+            && (rows[1].stoppedSlot == 4)))
+
+            prizeValue = "แมว";
 
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Cherry"))
+            && (rows[0].stoppedSlot == 5))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Cherry"))
+            && (rows[0].stoppedSlot == 5))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Cherry")))
+            && (rows[1].stoppedSlot == 5)))
 
-            prizeValue = 2000;
+            prizeValue = "ปลาวาฬ";
 
         else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Lemon"))
+            && (rows[0].stoppedSlot == "ปู"))
 
             || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[0].stoppedSlot == "Lemon"))
+            && (rows[0].stoppedSlot == "ปู"))
 
             || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
-            && (rows[1].stoppedSlot == "Lemon")))
+            && (rows[1].stoppedSlot == "ปู")))
 
-            prizeValue = 4000;
+            prizeValue = "ปู";
 
         resultsChecked = true;
+    }
+    */
+
+    // private void CheckResults()
+    // {
+    //     if (rows[0].stoppedSlot == "ไก่" 
+    //         && rows[1].stoppedSlot == "ไก่" 
+    //         && rows[2].stoppedSlot == "ไก่") 
+
+    //         prizeValue = "ไก่";
+
+    //     else if (rows[0].stoppedSlot == "นกฮูก" 
+    //         && rows[1].stoppedSlot == "นกฮูก" 
+    //         && rows[2].stoppedSlot == "นกฮูก")
+
+    //         prizeValue = "นกฮูก";
+
+    //     else if (rows[0].stoppedSlot == "จิ้งจอก" 
+    //         && rows[1].stoppedSlot == "จิ้งจอก" 
+    //         && rows[2].stoppedSlot == "จิ้งจอก") 
+
+    //         prizeValue = "จิ้งจอก"; 
+
+    //     else if (rows[0].stoppedSlot == "ผีเสื้อ" 
+    //         && rows[1].stoppedSlot == "ผีเสื้อ" 
+    //         && rows [2].stoppedSlot == "ผีเสื้อ")
+
+    //         prizeValue = "ผีเสื้อ";
+        
+    //     else if (rows[0].stoppedSlot == "แมว" 
+    //         && rows[1].stoppedSlot == "แมว" 
+    //         && rows [2].stoppedSlot == "แมว")
+
+    //         prizeValue = "แมว";
+
+    //     else if (rows[0].stoppedSlot == "ปลาวาฬ" 
+    //         && rows[1].stoppedSlot == "ปลาวาฬ" 
+    //         && rows [2].stoppedSlot == "ปลาวาฬ")
+
+    //         prizeValue = "ปลาวาฬ";
+        
+    //     else if (rows[0].stoppedSlot == "ปู" 
+    //         && rows[1].stoppedSlot == "ปู" 
+    //         && rows [2].stoppedSlot == "ปู")
+
+    //         prizeValue = "ปู";
+
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ไก่"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ไก่"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "ไก่")))
+
+    //         prizeValue = "ไก่";
+
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "นกฮูก"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "นกฮูก"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "นกฮูก")))
+
+    //         prizeValue = "นกฮูก";
+        
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "จิ้งจอก"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "จิ้งจอก"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "จิ้งจอก")))
+
+    //         prizeValue = "จิ้งจอก";
+        
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ผีเสื้อ"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ผีเสื้อ"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "ผีเสื้อ")))
+
+    //         prizeValue = "ผีเสื้อ";
+        
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "แมว"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "แมว"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "แมว")))
+
+    //         prizeValue = "แมว";
+
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ปลาวาฬ"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ปลาวาฬ"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "ปลาวาฬ")))
+
+    //         prizeValue = "ปลาวาฬ";
+
+    //     else if (((rows[0].stoppedSlot == rows[1].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ปู"))
+
+    //         || ((rows[0].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[0].stoppedSlot == "ปู"))
+
+    //         || ((rows[1].stoppedSlot == rows[2].stoppedSlot) 
+    //         && (rows[1].stoppedSlot == "ปู")))
+
+    //         prizeValue = "ปู";
+
+    //     resultsChecked = true;
+    // }
+       IEnumerator ExampleCoroutine()
+    {
+       
+        yield return new WaitForSeconds(20);
+
+   
     }
 }

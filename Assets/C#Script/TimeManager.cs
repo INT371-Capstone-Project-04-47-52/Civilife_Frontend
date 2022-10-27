@@ -242,7 +242,9 @@ namespace DPUtils.Systems.DateTime
 
             public string DateToString()
             {
-                return $" {Day}  {Date} {Year.ToString("D2")}"; 
+                return $" {Day}  {Date}"; 
+                //  return $" {Day}  {Date} {Year.ToString("D2")}
+                // "; 
             }
         
             public string TimeToString() 

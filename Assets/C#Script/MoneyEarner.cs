@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 public class MoneyEarner : MonoBehaviour
 {   
     public int _coins;
@@ -12,7 +13,7 @@ public class MoneyEarner : MonoBehaviour
     [SerializeField] public GameObject _clickFX;
      [SerializeField] public RectTransform _buttonPosition;
     public GameObject item;
-    public GameObject gameComplete;
+    public Transform gameComplete;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class MoneyEarner : MonoBehaviour
         _coinsText.text = _coins.ToString();
         if(_coins==20){
              Debug.Log("Game Complete"); //else game is complete
-             gameComplete.SetActive(true);
+             TweenResult(gameComplete);
              StartCoroutine(ExampleCoroutine());
              
              questClicker.SetActive(false);
@@ -60,4 +61,11 @@ public class MoneyEarner : MonoBehaviour
 
    
     }
+     void TweenResult(Transform resultTransform){
+        Sequence result = DOTween.Sequence();
+        result.Append(resultTransform.DOScale(1,.5f).SetEase(Ease.OutBack)); // Scale from 0 to 1
+        result.AppendInterval(1f); // Wait for 1 second
+        result.Append(resultTransform.DOScale(0,.2f).SetEase(Ease.Linear)); // Scale back down to 0
+     
+   }
 }

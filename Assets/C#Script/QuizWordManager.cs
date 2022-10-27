@@ -143,20 +143,30 @@ public class QuizWordManager : MonoBehaviour
             {   TweenResult(CorrectImage);
                 Debug.Log("Correct Answer");
                 gameStatus = GameStatus.Next; //set the game status
-                currentQuestionIndex++; //increase currentQuestionIndex
+                currentQuestionIndex++; 
+                 
+                   if(currentQuestionIndex ==3||currentQuestionIndex ==6||currentQuestionIndex ==9){  
+                   
+                    StartCoroutine(ExCoroutine());
+                    work_panel.SetActive(true);
+                       quiz_panel.SetActive(false);}
+                //increase currentQuestionIndex
 
                 //if currentQuestionIndex is less that total available questions
                 if (currentQuestionIndex < questionDataScriptable.questions.Count)
                 {
                     Invoke("SetQuestion", 0.5f); //go to next question
+                 
                 }
                 else
                 {
                     Debug.Log("Game Complete"); //else game is complete
                    gameComplete.SetActive(true);
                        StartCoroutine(ExampleCoroutine());
-                       work_panel.SetActive(true);
-                       quiz_panel.SetActive(false);
+                       
+                        
+                    
+                     
 
                 }
             }
@@ -186,6 +196,13 @@ public class QuizWordManager : MonoBehaviour
     {
        
         yield return new WaitForSeconds(5);
+
+   
+    }
+       IEnumerator ExCoroutine()
+    {
+       
+        yield return new WaitForSeconds(20);
 
    
     }

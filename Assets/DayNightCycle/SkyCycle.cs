@@ -3,7 +3,7 @@
 
 using UnityEngine;
 using System.Collections;
-
+using TMPro;
 public class SkyCycle : MonoBehaviour {
 
 
@@ -39,6 +39,8 @@ private Transform sunOrbit;
 
  public static float headX;
  public static float headY;
+  public static float headYY;
+  public TMP_Text dayText;
 void  Start (){
 	skyMat = GetComponent<Renderer>().sharedMaterial;
 	sunOrbit = sunTilt.GetChild(0);
@@ -61,9 +63,10 @@ void  UpdateSky (){
 	min = Mathf.Round(smoothMin);
 
     headY = sunOrbit.localEulerAngles.y;
-	headY = smoothMin/4;
+	headYY = smoothMin/4;
+	headY = headYY;
 	texOffset = Mathf.Cos((((smoothMin)/1440)*2)*Mathf.PI)*0.25f+0.25f;
-	skyMat.mainTextureOffset = new Vector2(Mathf.Round((texOffset-(Mathf.Floor(texOffset/360)*360))*1000)/1000,1);
+	skyMat.mainTextureOffset = new Vector2(Mathf.Round((texOffset-(Mathf.Floor(texOffset/360)*360))*1000)/1000,0);
 }
 
 void  Update (){
@@ -72,10 +75,11 @@ void  Update (){
 
 void  OnGUI (){
 	if(showGUI){
-		GUI.Label( new Rect(10,0,100,20),"Day "+day.ToString());
+			dayText.text = "Day" + day.ToString();
+		// GUI.Label( new Rect(10,0,100,20),"Day "+day.ToString());
 		// GUI.Label( new Rect(10,20,100,40),digitalDisplay(Mathf.Floor(min/60).ToString()), " " digitalDisplay((min-Mathf.Floor(min/60)*60).ToString()));
 	}
-	GUI.Label( new Rect(10,40,100,60),texOffset.ToString()); //texture offset
+	// GUI.Label( new Rect(10,40,100,60),texOffset.ToString()); //texture offset
 }
 
 void  digitalDisplay (string num){ //converts a number into a digital display (adds a zero if it's a single figure)
