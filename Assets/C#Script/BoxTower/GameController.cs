@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public int moveCount;
     public GameObject BoxTower;
     public Transform SuccessImage;
+    public GameObject box_prefab;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         score = 0;
+        box_prefab.SetActive(true);
     }
 
     // Update is called once per frame
@@ -44,8 +46,9 @@ public class GameController : MonoBehaviour
     { if(score >= 4){
        TweenResult(SuccessImage);
         BoxTower.SetActive(false);
+         box_prefab.SetActive(false);
          score=0;
-        //    Invoke("NextBox", 0f);
+        //   Invoke("NextBox", 0f);
         //GamObject Setactive false
         
     }
